@@ -1,169 +1,211 @@
-# 📘 Student Registration System (Java Servlet + JDBC)
 
-## 📌 Project Description
+# 📘 Student Registration Web Application
 
-The **Student Registration System** is a simple Java Servlet–based web application that allows users to:
+## 📌 Project Overview
 
-- Register students using a web form
-- Store student data in a relational database
-- View all registered students in an HTML table
+The **Student Registration Web Application** is a simple Java web application built using **Java Servlets, JSP, JDBC, MySQL, and Apache Tomcat**.
+It allows users to:
 
-This project demonstrates the use of **Java Servlets**, **JDBC**, and **MySQL** following a basic MVC-style structure.  
-It is suitable for **Advanced Programming / Web Programming coursework**.
+* Register students using a web form
+* Store student data in a MySQL database
+* View all registered students in a tabular format
 
----
-
-## 🎯 Features
-
-- Student Registration (POST `/register`)
-- View All Registered Students (GET `/show_all`)
-- Input validation
-- Database persistence using MySQL
-- Simple and clean user interface
+This project demonstrates **MVC architecture**, **database connectivity**, and **Java EE web development fundamentals**.
 
 ---
 
-## 🛠 Technologies Used
+## 🛠️ Technologies Used
 
-- Java (JDK 8+)
-- Java Servlets (Jakarta Servlet API)
-- JDBC
-- MySQL
-- Apache Tomcat (v9 or v10)
-- HTML
+* **Java (JDK 17+ / JDK 25)**
+* **Jakarta Servlet API**
+* **JSP (JavaServer Pages)**
+* **JDBC**
+* **MySQL**
+* **Apache Tomcat 10.1.x**
+* **Maven**
+* **Bootstrap 5 (Frontend styling)**
 
 ---
 
 ## 📂 Project Structure
 
 ```
-
-StudentRegistrationApp/
+StudentRegistrationApp
 │
-├── src/main/java/
-│   ├── db/
-│   │   └── DBConnection.java
-│   │
-│   ├── servlet/
-│   │   ├── RegisterStudentServlet.java
-│   │   └── ShowAllStudentsServlet.java
+├── src
+│   └── main
+│       ├── java
+│       │   ├── controller
+│       │   │   ├── RegisterStudentServlet.java
+│       │   │   └── ShowStudentsServlet.java
+│       │   │
+│       │   ├── dao
+│       │   │   └── StudentDAO.java
+│       │   │
+│       │   ├── model
+│       │   │   └── Student.java
+│       │   │
+│       │   └── util
+│       │       └── DBConnection.java
+│       │
+│       └── webapp
+│           ├── index.jsp
+│           ├── students.jsp
+│           └── WEB-INF
+│               └── web.xml
 │
-├── src/main/webapp/
-│   ├── index.html
-│   └── WEB-INF/
-│       └── web.xml
-│
+├── pom.xml
 └── README.md
-
 ```
 
 ---
 
-## 🗄 Database Design
+## 🧩 Application Features
 
-### Database Name
-```
+### ✅ Student Registration
 
-student_db
+* User inputs **Name**, **Email**, and **Year**
+* Data is validated and stored in MySQL
 
-````
+### ✅ View All Students
 
-### Table: `students`
+* Displays all registered students in a table
+* Clean and responsive UI using Bootstrap
 
-| Column Name | Data Type     | Constraints               |
-|------------|--------------|---------------------------|
-| id         | INT          | Primary Key, Auto Increment |
-| name       | VARCHAR(100) | NOT NULL                  |
-| email      | VARCHAR(100) | NOT NULL, UNIQUE          |
-| year       | INT          | NOT NULL                  |
+---
 
-### SQL Script
+## 🗄️ Database Setup (MySQL)
+
+### 1️⃣ Create Database
 
 ```sql
-CREATE DATABASE student_db;
-USE student_db;
+CREATE DATABASE studentdb;
+USE studentdb;
+```
 
+### 2️⃣ Create Table
+
+```sql
 CREATE TABLE students (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    year INT NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    year INT
 );
-````
+```
+
+### 3️⃣ Update Database Credentials
+
+Edit `DBConnection.java`:
+
+```java
+private static final String URL = "jdbc:mysql://localhost:3306/studentdb";
+private static final String USER = "root";
+private static final String PASSWORD = "your_password";
+```
 
 ---
 
-## 🔄 Application Workflow
+## ▶️ How to Run the Project (Step by Step)
 
-### 1️⃣ Student Registration
+### 1️⃣ Install Required Software
 
-* User fills the registration form
-* Data is sent to `/register` using POST
-* Servlet validates and inserts data into the database
+* Java JDK
+* Apache Maven
+* MySQL Server
+* Apache Tomcat 10.1.x
+* IntelliJ IDEA (Recommended)
 
-### 2️⃣ View All Students
+---
 
-* User clicks "View All Students"
-* Servlet fetches all records from database
-* Data is displayed in an HTML table
+### 2️⃣ Open Project in IntelliJ IDEA
+
+* **File → Open → Select project folder**
+* Wait for **Maven dependencies** to download
+
+---
+
+### 3️⃣ Configure Tomcat Server
+
+* **Run → Edit Configurations**
+* Add **Tomcat Server (Local)**
+* Deployment:
+
+    * Select **StudentRegistrationApp: war exploded**
+* Port: `8080`
+
+---
+
+### 4️⃣ Start MySQL Server
+
+* Start MySQL from:
+
+    * **XAMPP / MySQL Installer / Services**
+* Confirm MySQL is running
+
+---
+
+### 5️⃣ Run the Application
+
+* Click **Run ▶**
+* Open browser and visit:
+
+```
+http://localhost:8080/StudentRegistrationApp/
+```
+
+---
+
+## 🌐 Application URLs
+
+| Feature              | URL          |
+| -------------------- | ------------ |
+| Student Registration | `/index.jsp` |
+| View Students        | `/show_all`  |
 
 ---
 
 ## 🖼 Sample Screenshots
 
-> 📌 **Note:** Replace the image files with your own screenshots before submission.
-
 ### 🔹 Student Registration Page
 
 ![Student Registration Form](images/studentRegisterSystem.jpg)
 
----
-
-## ▶ How to Run the Project
-
-### Step 1: Prerequisites
-
-* Install **JDK**
-* Install **MySQL**
-* Install **Apache Tomcat**
-* Add **MySQL Connector/J** to the project
-
-### Step 2: Database Setup
-
-* Run the provided SQL script in MySQL
-* Update database credentials in `DBConnection.java`
-
-### Step 3: Deploy
-
-* Import project into IntelliJ IDEA / Eclipse
-* Deploy on Apache Tomcat
-* Start the server
-
-### Step 4: Access Application
-
-Open your browser and visit:
-
-```
-http://localhost:8080/StudentRegistrationApp/index.html
-```
 
 ---
 
-## ✅ Expected Output
+## 🧪 Sample Workflow
 
-* Students can be registered successfully
-* Duplicate emails are prevented
-* All registered students are displayed in a table
-* Data persists in the database
+1. Open Registration Page
+2. Enter student details
+3. Click **Register**
+4. Click **View All Students**
+5. Data appears in the table
 
 ---
 
-## 🚀 Future Enhancements
+## 📐 Architecture (MVC)
 
-* Add JSP for better MVC separation
-* Input validation with regex
-* CSS styling
-* Update and delete student records
-* Login authentication
+* **Model:** `Student.java`
+* **View:** `index.jsp`, `students.jsp`
+* **Controller:** Servlets
+* **DAO:** Handles database operations
 
+---
+
+## 📌 Future Enhancements
+
+* Edit & delete students
+* Search and filter
+* Pagination
+* Login system
+* REST API version
+
+---
+
+## 👨‍🎓 Author
+
+**Name:** Petros Sisay
+**Course:** Advanced Java Programming
+**Project Type:** Academic / Learning Project
 

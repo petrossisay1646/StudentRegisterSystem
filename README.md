@@ -206,6 +206,8 @@ http://localhost:8080/StudentRegistrationApp/
 ## 👨‍🎓 Author
 
 **Name:** Petros Sisay
+
 **Course:** Advanced Java Programming
+
 **Project Type:** Academic / Learning Project
 
